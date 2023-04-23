@@ -19,7 +19,7 @@ const Square = ({ square: { hasMine, minesAround, cleared }, clearSquare }) => {
   }
   return (
     <Pressable onPress={clearSquare} style={style}>
-      <Text style={{fontFamily: 'monospace'}}>{cleared ? title : ' '}</Text>
+      <Text style={{fontFamily: 'monospace', fontSize: 24}}>{cleared ? title : ' '}</Text>
     </Pressable>
   );
 }
