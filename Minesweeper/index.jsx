@@ -21,10 +21,13 @@ const Minesweeper = ({ squares, resetSquares, clearSquare, flagSquare }) => {
     setGameover(false);
   };
 
+  const gotVictory = () => !gameover && squares.every(row => row.every(square => square.hasMine || square.cleared))
+
   let title = '🙂';
 
   if (pressedIn) title = '😯';
   if (gameover) title = '😵';
+  if (gotVictory()) title = '😎';
 
   return (
     <View>
