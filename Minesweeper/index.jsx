@@ -9,6 +9,7 @@ import Square from './Square';
 const Minesweeper = ({ squares, resetSquares, clearSquare, flagSquare }) => {
   useEffect(() => void resetSquares(), []);
   const [gameover, setGameover] = useState(false);
+  const [pressedIn, setPressedIn] = useState(false);
 
   const pressSquare = ([x, y]) => {
     clearSquare([x, y])
@@ -20,10 +21,15 @@ const Minesweeper = ({ squares, resetSquares, clearSquare, flagSquare }) => {
     setGameover(false);
   };
 
+  let title = '🙂';
+
+  if (pressedIn) title = '😯';
+  if (gameover) title = '😵';
+
   return (
     <View>
       {gameover && <Text>Game Over</Text>}
-      <Button title='Reset' onPress={() => newGame()} />
+      <Button title={title} onPress={() => newGame()} />
       {squares.map((row, r) => (
         <View key={r} style={{flexDirection: 'row'}}>
           {row.map((square, c) => (
@@ -32,6 +38,8 @@ const Minesweeper = ({ squares, resetSquares, clearSquare, flagSquare }) => {
               clearSquare={() => !gameover && !squares[r][c].flagged && pressSquare([r, c])}
               key={c}
               flagSquare={() => !gameover && flagSquare([r, c])}
+              onPressIn={() => setPressedIn(true)}
+              onPressOut={() => setPressedIn(false)}
             />
           ))}
         </View>
