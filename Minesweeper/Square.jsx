@@ -19,7 +19,7 @@ const Square = ({ square: { hasMine, minesAround, cleared, flagged }, clearSquar
   }
   return (
     <Pressable onPress={clearSquare} onLongPress={flagSquare} style={style} onPressIn={onPressIn} onPressOut={onPressOut}>
-      <Text style={{fontFamily: 'monospace', fontSize: 24}}>{cleared ? title : (flagged ? '⚑' : ' ')}</Text>
+      <Text style={{fontFamily: 'monospace', fontSize: 48}}>{cleared ? title : (flagged ? '⚑' : ' ')}</Text>
     </Pressable>
   );
 }
