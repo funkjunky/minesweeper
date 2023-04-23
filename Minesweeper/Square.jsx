@@ -1,6 +1,6 @@
 import { Pressable, Text } from 'react-native';
 
-const Square = ({ square: { hasMine, minesAround, cleared }, clearSquare }) => {
+const Square = ({ square: { hasMine, minesAround, cleared, flagged }, clearSquare, flagSquare }) => {
   const title = hasMine ? 'x' : minesAround;
   let style = {
     flexDirection: 'row',
@@ -18,8 +18,8 @@ const Square = ({ square: { hasMine, minesAround, cleared }, clearSquare }) => {
     };
   }
   return (
-    <Pressable onPress={clearSquare} style={style}>
-      <Text style={{fontFamily: 'monospace', fontSize: 24}}>{cleared ? title : ' '}</Text>
+    <Pressable onPress={clearSquare} onLongPress={flagSquare} style={style}>
+      <Text style={{fontFamily: 'monospace', fontSize: 24}}>{cleared ? title : (flagged ? '⚑' : ' ')}</Text>
     </Pressable>
   );
 }

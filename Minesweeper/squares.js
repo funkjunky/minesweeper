@@ -17,6 +17,7 @@ const squares = createSlice({
         square.hasMine = false;
         square.minesAround = 0;
         square.cleared = false;
+        square.flagged = false;
       }))
 
       // add new mines
@@ -54,8 +55,10 @@ const squares = createSlice({
 
       clearSquaresAroundIfZero(state, x, y);
     },
+
+    flagSquare: (state, { payload: [x, y] }) => void (state[x][y].flagged = !state[x][y].flagged),
   },
 });
 
-export const { resetSquares, clearSquare } = squares.actions;
+export const { resetSquares, clearSquare, flagSquare } = squares.actions;
 export default squares.reducer;

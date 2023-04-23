@@ -2,11 +2,11 @@ import { Button, View, Text } from 'react-native';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { resetSquares, clearSquare } from './squares';
+import { resetSquares, clearSquare, flagSquare } from './squares';
 
 import Square from './Square';
 
-const Minesweeper = ({ squares, resetSquares, clearSquare }) => {
+const Minesweeper = ({ squares, resetSquares, clearSquare, flagSquare }) => {
   useEffect(() => void resetSquares(), []);
   const [gameover, setGameover] = useState(false);
 
@@ -27,7 +27,12 @@ const Minesweeper = ({ squares, resetSquares, clearSquare }) => {
       {squares.map((row, r) => (
         <View key={r} style={{flexDirection: 'row'}}>
           {row.map((square, c) => (
-            <Square square={square} clearSquare={() => !gameover && pressSquare([r, c])} key={c} />
+            <Square
+              square={square}
+              clearSquare={() => !gameover && !squares[r][c].flagged && pressSquare([r, c])}
+              key={c}
+              flagSquare={() => !gameover && flagSquare([r, c])}
+            />
           ))}
         </View>
       ))}
@@ -35,4 +40,4 @@ const Minesweeper = ({ squares, resetSquares, clearSquare }) => {
   );
 };
 
-export default connect(({ squares }) => ({ squares }), { resetSquares, clearSquare })(Minesweeper);
+export default connect(({ squares }) => ({ squares }), { resetSquares, clearSquare, flagSquare })(Minesweeper);
