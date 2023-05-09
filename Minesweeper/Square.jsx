@@ -1,6 +1,6 @@
 import { Pressable, Text } from 'react-native';
 
-const Square = ({ square: { hasMine, minesAround, cleared, flagged }, clearSquare, flagSquare, onPressIn, onPressOut }) => {
+const Square = ({ square: { hasMine, minesAround, cleared, flagged }, clearSquare, flagSquare, onPressIn, onPressOut, gameover }) => {
   const title = hasMine ? 'x' : minesAround;
   let style = {
     flexDirection: 'row',
@@ -17,9 +17,10 @@ const Square = ({ square: { hasMine, minesAround, cleared, flagged }, clearSquar
       borderBottom: 'solid 2px #888',
     };
   }
+  // TODO: logic is a mess for what to show
   return (
     <Pressable onPress={clearSquare} onLongPress={flagSquare} style={style} onPressIn={onPressIn} onPressOut={onPressOut}>
-      <Text style={{fontFamily: 'monospace', fontSize: 48}}>{cleared ? title : (flagged ? '⚑' : ' ')}</Text>
+      <Text style={{fontFamily: 'monospace', fontSize: 48}}>{cleared ? title : (gameover ? (hasMine ? (flagged ? 'x' : '✓') : ' ') : (flagged ? '⚑' : ' '))}</Text>
     </Pressable>
   );
 }
